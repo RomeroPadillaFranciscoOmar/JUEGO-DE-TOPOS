@@ -127,7 +127,7 @@
 
       </div>
     
-    
+   
 
     </div>
 
@@ -139,6 +139,8 @@ const topo = document.querySelector(".topo");
 const contadorT = document.getElementById("tiempo");
 const contadorP = document.getElementById("puntaje");
 const facil = document.getElementById("facil");
+const normal=document.getElementById("normal");
+const dificil=document.getElementById("dificil");
 
 let puntaje = 0;
 let cajaActual = 0;
@@ -166,6 +168,8 @@ function iniciarF() {
   contadorP.innerText = puntaje;
 }
 iniciarF();
+
+
 function iniciarN() {
   puntaje = 0;
   tiempoActual = 15;
@@ -173,6 +177,7 @@ function iniciarN() {
   veloTiempo = setInterval(tiempoAtras, "1000");
   contadorT.innerText = tiempoActual;
   contadorP.innerText = puntaje;
+
 }
 
 
@@ -207,12 +212,14 @@ function tiempoAtras() {
     clearInterval(veloTiempo);
     clearInterval(veloTopo);
     alert("NO HAZ ATRAPADO SUFICIENTEES TOPOS, HAZ PERDIDO, PUNTAJE: " + puntaje);
+    
   }
 
   if (tiempoActual == 0&&puntaje>=7) {
     clearInterval(veloTiempo);
     clearInterval(veloTopo);
     alert("HAZ ATRAPADO SUFICIENTES TOPOS, GANASTE, PUNTAJE: " + puntaje);
+    
   }
 }
 
@@ -240,7 +247,7 @@ function reiniciarJuegoD() {
 
 dificil.addEventListener("click", reiniciarJuegoD);
 
-    
+
 </script> 
  </body>
 </html>
