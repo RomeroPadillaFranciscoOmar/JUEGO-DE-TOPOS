@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOLPEA AL TOPO</title>
+   <style> 
+
+    body{
+            background-image: url('https://img.freepik.com/vector-gratis/escena-fondo-campo-verde-cielo-azul_1308-41804.jpg'); background-repeat: no-repeat; background-size: cover;
+        }
+
+    :root {
+        
+        
+  --color: #FF3386 ; 
+}
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 40px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.tablero {
+  width: 450px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.caja {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 3px var(--color);
+  background-image: url("https://tiposde.es/wp-content/uploads/2020/04/1587649772_Tipos-de-suelos.jpg");
+  background-size: cover;
+}
+
+.topo {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/1459/1459520.png");
+  background-size: cover;
+}
+
+#reiniciar {
+  padding: 10px 20px;
+  color: black;
+  background-color: var(--color);
+  border-color: var(--color);
+  border-radius: 5px;
+  font-size: 1rem;
+
+}
+#facil {
+  padding: 10px 20px;
+  color: black;
+  background-color: var(--color);
+  border-color: var(--color);
+  border-radius: 5px;
+  font-size: 1rem;
+  
+}
+
+#normal {
+  padding: 10px 20px;
+  color: black;
+  background-color: var(--color);
+  border-color: var(--color);
+  border-radius: 5px;
+  font-size: 1rem;
+
+  
+}
+
+  #dificil {
+  padding: 10px 20px;
+  color: black;
+  background-color: var(--color);
+  border-color: var(--color);
+  border-radius: 5px;
+  font-size: 1rem;
+
+}
+
+
+   </style>
+  </head>
+  <body>
+    
+    
+    <div class="container">
+      <h2>PUNTAJE: <span id="puntaje"></span></h2>
+      <h2>TIEMPO: <span id="tiempo"></span></h2>
+      <button id="facil" >FACIL</button>
+      <button id="normal" >NORMAL</button>
+      <button id="dificil" >DIFICIL</button>
+      <div class="tablero">
+        <div class="caja" id="0"></div>
+        <div class="caja" id="1"></div>
+        <div class="caja" id="2"></div>
+        <div class="caja" id="3"></div>
+        <div class="caja" id="4"></div>
+        <div class="caja" id="5"></div>
+        <div class="caja" id="6"></div>
+        <div class="caja" id="7"></div>
+        <div class="caja" id="8"></div>
+        <div class="caja" id="9"></div>
+        <div class="caja" id="10"></div>
+        <div class="caja" id="11"></div>
+        <div class="caja" id="12"></div>
+        <div class="caja" id="13"></div>
+        <div class="caja" id="14"></div>
+        <div class="caja" id="15"></div>
+        
+
+      </div>
+    
+    
+
+    </div>
+
+<script>
+
+    const cajas = document.querySelectorAll(".caja");
+const topo = document.querySelector(".topo");
+
+const contadorT = document.getElementById("tiempo");
+const contadorP = document.getElementById("puntaje");
+const facil = document.getElementById("facil");
+
+let puntaje = 0;
+let cajaActual = 0;
+let isLocked = false;
+let tiempoActual = 15;
+//FUNCION QUE MUESTRA LOS TOPOS ALEATORIAMENTE DEE ACUEERDO AL ARREGLO
+function mostrarTopo() {
+  cajas.forEach((caja) => {
+    caja.classList.remove("topo");
+  });
+  isLocked = false;
+  let cajaAleatoria = cajas[Math.floor(Math.random() * 15)];
+
+  cajaAleatoria.classList.add("topo");
+
+  cajaActual = cajaAleatoria.id;
+}
+//FUNCION INICIAR DONDEE SE DETEERMINA PUNTAJE INICIAL, VEELOCIDAD DEL TIEMPO Y DE LOS TOPOS
+function iniciarF() {
+  puntaje = 0;
+  tiempoActual = 15;
+  veloTopo = setInterval(mostrarTopo, 1000);
+  veloTiempo = setInterval(tiempoAtras, "1000");
+  contadorT.innerText = tiempoActual;
+  contadorP.innerText = puntaje;
+}
+iniciarF();
+function iniciarN() {
+  puntaje = 0;
+  tiempoActual = 15;
+  veloTopo = setInterval(mostrarTopo, 550);
+  veloTiempo = setInterval(tiempoAtras, "1000");
+  contadorT.innerText = tiempoActual;
+  contadorP.innerText = puntaje;
+}
+
+
+function iniciarD() {
+  puntaje = 0;
+  tiempoActual = 15;
+  veloTopo = setInterval(mostrarTopo, 300);
+  veloTiempo = setInterval(tiempoAtras, "1000");
+  contadorT.innerText = tiempoActual;
+  contadorP.innerText = puntaje;
+}
+
+
+cajas.forEach((caja) => {
+  caja.addEventListener("click", () => {
+    if (caja.id == cajaActual) {
+      if (isLocked) return;
+
+      puntaje++;
+      contadorP.innerText = puntaje;
+      caja.classList.remove("topo");
+      isLocked = true;
+    }
+  });
+});
+//FUNCION QUE HACE TIEMPO HACIA ATRAS
+function tiempoAtras() {
+  tiempoActual--;
+  contadorT.innerText = tiempoActual;
+
+  if (tiempoActual == 0&&puntaje<=6) {
+    clearInterval(veloTiempo);
+    clearInterval(veloTopo);
+    alert("NO HAZ ATRAPADO SUFICIENTEES TOPOS, HAZ PERDIDO, PUNTAJE: " + puntaje);
+  }
+
+  if (tiempoActual == 0&&puntaje>=7) {
+    clearInterval(veloTiempo);
+    clearInterval(veloTopo);
+    alert("HAZ ATRAPADO SUFICIENTES TOPOS, GANASTE, PUNTAJE: " + puntaje);
+  }
+}
+
+function reiniciarJuegoF() {
+  clearInterval(veloTiempo);
+  clearInterval(veloTopo);
+  iniciarF();
+  }
+
+facil.addEventListener("click", reiniciarJuegoF);
+
+function reiniciarJuegoN() {
+  clearInterval(veloTiempo);
+  clearInterval(veloTopo);
+  iniciarN();
+  }
+
+normal.addEventListener("click", reiniciarJuegoN);
+
+function reiniciarJuegoD() {
+  clearInterval(veloTiempo);
+  clearInterval(veloTopo);
+  iniciarD();
+  }
+
+dificil.addEventListener("click", reiniciarJuegoD);
+
+    
+</script> 
+ </body>
+</html>
